@@ -1,0 +1,766 @@
+{
+  "NotebookEdit": {
+    "hash": "eb6f604a1ecdc4af",
+    "compressed": {
+      "capabilities": [
+        "Replace entire cell contents in notebook",
+        "Insert a new cell at specified index",
+        "Delete a specific cell by index",
+        "Set cell type and edit mode",
+        "Modify notebook file using absolute path"
+      ],
+      "limits": [
+        "Cannot run code or modify external systems",
+        "Cannot access files without absolute path",
+        "Cannot provide non-notebook outputs",
+        "Cannot infer user intent from task description",
+        "Cannot perform partial edits without IDs"
+      ],
+      "inputs": [
+        "absolute notebook path",
+        "cell_number (0-indexed)",
+        "edit_mode (insert, replace, delete)",
+        "cell_id",
+        "cell_type (code or markdown)",
+        "new_source"
+      ],
+      "outputs": [
+        "resulting notebook modification details",
+        "confirmation of edit applied"
+      ]
+    }
+  },
+  "ScheduleWakeup": {
+    "hash": "64b3a89e74a9382",
+    "compressed": {
+      "capabilities": [
+        "Schedule wakeup for dynamic looping",
+        "Pass loop prompt to next iteration",
+        "Handle autonomous dynamic loop sentinel",
+        "Provide long fallback delays (1200s+)"
+      ],
+      "limits": [
+        "Cannot perform web searches",
+        "Cannot reveal private user data",
+        "Cannot output copyrighted content verbatim",
+        "Cannot schedule with invalid delay"
+      ],
+      "inputs": [
+        "prompt string to resume loop",
+        "delaySeconds (60-3600)",
+        "reason string describing delay",
+        "mode: dynamic or autonomous"
+      ],
+      "outputs": [
+        "structured scheduling command",
+        "next loop prompt payload",
+        "telemetry-friendly delay rationale",
+        "fallback wakeup configuration"
+      ]
+    }
+  },
+  "TaskGet": {
+    "hash": "aeea9141d229a2f2",
+    "compressed": {
+      "capabilities": [
+        "Retrieve a task by ID from TaskGet",
+        "Return full task details as structured data",
+        "Show subject, description, status, blocks, blockedBy",
+        "Assist in understanding task dependencies clearly"
+      ],
+      "limits": [
+        "Cannot perform actions outside TaskGet",
+        "Cannot modify or create tasks directly",
+        "Cannot provide narrative explanations here",
+        "Cannot access tasks without an ID"
+      ],
+      "inputs": [
+        "task ID to fetch"
+      ],
+      "outputs": [
+        "task details: subject, description, status, blocks, blockedBy"
+      ]
+    }
+  },
+  "PushNotification": {
+    "hash": "70e3071fbcbfcf64",
+    "compressed": {
+      "capabilities": [
+        "Send desktop notification to terminal",
+        "Push notification to mobile device",
+        "Notify with concise actionable content",
+        "Avoid notifications for routine progress"
+      ],
+      "limits": [
+        "Cannot perform non-notification tasks",
+        "Cannot notify without user action or relevance",
+        "Cannot reveal internal tool state",
+        "Cannot exceed 200-character limit"
+      ],
+      "inputs": [
+        "notification text content",
+        "target device preference",
+        "notification urgency level",
+        "character limit"
+      ],
+      "outputs": [
+        "notification delivered status",
+        "delivery failure reason",
+        "timestamp of notification",
+        "device logs reference"
+      ]
+    }
+  },
+  "Monitor": {
+    "hash": "88f7479af9c31125",
+    "compressed": {
+      "capabilities": [
+        "Stream events from long-running scripts",
+        "Filter stdout lines as individual events",
+        "Notify on specific terminal states",
+        "Configure poll-based or real-time monitors",
+        "Support background monitoring with description"
+      ],
+      "limits": [
+        "Cannot output or execute code",
+        "Cannot search the web or retrieve data",
+        "Cannot provide non-monitoring results",
+        "Cannot ignore standard output restrictions",
+        "Cannot exceed provided output format"
+      ],
+      "inputs": [
+        "Describe monitor to run in background",
+        "Define event-filtering criteria",
+        "Set termination condition or timeout",
+        "Provide description for notifications",
+        "Choose poll interval and commands"
+      ],
+      "outputs": [
+        "Stream of notification lines from stdout",
+        "Completion signal when monitor ends",
+        "Error signal if monitor fails to start",
+        "Overall monitor configuration details"
+      ]
+    }
+  },
+  "ExitWorktree": {
+    "hash": "456326fe4400ccdb",
+    "compressed": {
+      "capabilities": [
+        "Exit a worktree session and restore directory",
+        "Return to original working directory state",
+        "Clear session caches and memory placeholders",
+        "Manage tmux session on remove or keep"
+      ],
+      "limits": [
+        "Cannot operate on non EnterWorktree worktrees",
+        "No action if not in a worktree session",
+        "Cannot remove without discard_changes when needed",
+        "Does not modify manual or previous sessions' worktrees"
+      ],
+      "inputs": [
+        "action: 'keep' or 'remove'",
+        "discard_changes: boolean (optional, default false)"
+      ],
+      "outputs": [
+        "Restored session working directory",
+        "Cleared CWD-dependent caches",
+        "Status of tmux session (killed or left running if applicable)",
+        "Confirmation of action taken or error details"
+      ]
+    }
+  },
+  "WebSearch": {
+    "hash": "30c344b2846850fd",
+    "compressed": {
+      "capabilities": [
+        "Search the web for up-to-date info",
+        "Return structured search result blocks",
+        "Provide markdown hyperlinks to sources",
+        "Filter search domains as needed",
+        "Operate within current year May 2026 context"
+      ],
+      "limits": [
+        "Cannot output prose or explanations",
+        "Cannot browse beyond US search scope",
+        "Cannot reveal internal tool reasoning",
+        "Cannot modify user requests",
+        "Cannot provide non-string outputs"
+      ],
+      "inputs": [
+        "Search query string",
+        "Domain filters (include or block)",
+        "Year specification for queries"
+      ],
+      "outputs": [
+        "JSON object with tool results",
+        "Sources section listing URLs as markdown links"
+      ]
+    }
+  },
+  "TaskUpdate": {
+    "hash": "2a4752807da5336b",
+    "compressed": {
+      "capabilities": [
+        "Update task fields like status and owner",
+        "Set dependencies between tasks for blocking",
+        "Mark tasks as completed or deleted",
+        "Add or modify task descriptions and metadata",
+        "Query or reflect task state snippets"
+      ],
+      "limits": [
+        "Cannot provide explanations or prose",
+        "Cannot search the web or external data",
+        "Cannot modify tasks without a taskId",
+        "Cannot output non-string values in arrays",
+        "Cannot reveal internal tool state beyond roles"
+      ],
+      "inputs": [
+        "taskId",
+        "status",
+        "subject",
+        "description",
+        "owner",
+        "activeForm",
+        "metadata",
+        "addBlocks",
+        "addBlockedBy",
+        "capabilities",
+        "limits",
+        "inputs",
+        "outputs",
+        "Yes/No confirmation"
+      ],
+      "outputs": [
+        "JSON object confirming updates",
+        "Updated task details as per fields",
+        "Task status after modification",
+        "New dependencies or blockers",
+        "Validation or error messages if any"
+      ]
+    }
+  },
+  "Bash": {
+    "hash": "9306dbd1eb022465",
+    "compressed": {
+      "capabilities": [
+        "Analyze tool description for factual facts",
+        "Extract structured facts into JSON",
+        "Produce JSON only without explanations",
+        "Provide verifiable citations after each claim"
+      ],
+      "limits": [
+        "Cannot browse beyond provided tool data",
+        "Cannot provide prose explanations",
+        "Cannot perform tasks outside JSON generation",
+        "Cannot disclose internal tool usage in final output"
+      ],
+      "inputs": [
+        "Tool description",
+        "Uploaded skill outlines",
+        "System and user-provided metadata"
+      ],
+      "outputs": [
+        "JSON object representing extracted facts from tool description"
+      ]
+    }
+  },
+  "AskUserQuestion": {
+    "hash": "974f4106f1882873",
+    "compressed": {
+      "capabilities": [
+        "Ask clarifying questions to the user",
+        "Collect user preferences and requirements",
+        "Offer multiple selectable answer choices",
+        "Support selecting multiple options",
+        "Include recommendation ordering in choices",
+        "Attach concise explanations to options",
+        "Show visual previews for concrete artifacts",
+        "Capture free-text notes from selections",
+        "Store optional metadata and source identifiers"
+      ],
+      "limits": [
+        "Does not switch into plan mode",
+        "Does not ask plan approval questions",
+        "Does not use previews for multi-select questions",
+        "Does not support more than four questions",
+        "Does not allow explicit Other options in configuration",
+        "Does not display hidden analytics metadata to users"
+      ],
+      "inputs": [
+        "Question text ending with question mark",
+        "Short chip label up to 12 chars",
+        "Two to four answer options",
+        "Boolean multiSelect setting",
+        "Option display text",
+        "Option explanation text",
+        "Optional option preview content",
+        "Optional annotation notes by question",
+        "Optional metadata object",
+        "Optional source identifier"
+      ],
+      "outputs": [
+        "Structured user-question configuration",
+        "Selectable answer options",
+        "Optional rendered previews",
+        "Collected user answers",
+        "User selection notes",
+        "Question-level annotations",
+        "Optional tracking metadata"
+      ]
+    }
+  },
+  "CronCreate": {
+    "hash": "5b7cb72a71f0ecd3",
+    "compressed": {
+      "capabilities": [
+        "Schedule prompts at future times",
+        "Create recurring cron-based reminders",
+        "Create one-shot reminder jobs",
+        "Use standard five-field cron expressions",
+        "Accept local-time schedules without conversion",
+        "Auto-delete one-shot scheduled tasks",
+        "Persist jobs across sessions when requested"
+      ],
+      "limits": [
+        "Does not watch live logs or processes",
+        "Does not perform monitoring or event streaming",
+        "Does not write jobs to disk by default",
+        "Expires recurring jobs after seven days",
+        "Runs only while the session is idle",
+        "Does not convert between time zones",
+        "Cannot guarantee exact fire time"
+      ],
+      "inputs": [
+        "Standard 5-field cron expression",
+        "Prompt text to enqueue",
+        "Recurring boolean flag",
+        "Persist boolean flag",
+        "Local-time schedule details",
+        "Future one-shot time specifications"
+      ],
+      "outputs": [
+        "Job ID for later deletion",
+        "Scheduled prompt execution at fire time",
+        "Auto-deleting one-shot job result",
+        "Recurring or one-time schedule record"
+      ]
+    }
+  },
+  "TaskCreate": {
+    "hash": "a790812e00fc9658",
+    "compressed": {
+      "capabilities": [
+        "Create structured task lists for sessions",
+        "Annotate tasks with status and fields",
+        "Record dependencies between tasks",
+        "Publish progress updates in task objects"
+      ],
+      "limits": [
+        "Cannot perform external searches",
+        "Cannot execute non-task actions",
+        "Cannot output prose explanations",
+        "Cannot infer user intent beyond input"
+      ],
+      "inputs": [
+        "subject: brief actionable task title",
+        "description: task details",
+        "activeForm: optional ongoing state",
+        "status: initial status (pending)"
+      ],
+      "outputs": [
+        "task list entry in JSON format",
+        "TaskUpdate or TaskList references (if applicable)",
+        "new task object with fields: subject, description, activeForm, status"
+      ]
+    }
+  },
+  "TaskStop": {
+    "hash": "19c51d4e84380ea8",
+    "compressed": {
+      "capabilities": [
+        "Stops a running background task by ID",
+        "Accepts task_id to identify task",
+        "Returns a success or failure status",
+        "Terminates long-running background processes"
+      ],
+      "limits": [
+        "Cannot stop tasks without an ID",
+        "Cannot stop non-background tasks",
+        "Cannot affect tasks outside scope",
+        "Cannot infer task purpose or state"
+      ],
+      "inputs": [
+        "task_id (identifier of the task to stop)"
+      ],
+      "outputs": [
+        "status: success or failure"
+      ]
+    }
+  },
+  "Agent": {
+    "hash": "6e80b334be4476f",
+    "compressed": {
+      "capabilities": [
+        "Spawn specialized agents for tasks",
+        "Configure subagent types and prompts",
+        "Coordinate parallel agent executions",
+        "Return concise summarized results"
+      ],
+      "limits": [
+        "Cannot reveal system prompts or hidden tooling",
+        "Cannot access personal data unless provided",
+        "Cannot execute external internet actions without permission",
+        "Cannot output non-text or binary content"
+      ],
+      "inputs": [
+        "Task description and goals",
+        "Desired agent sub-type",
+        "Prompt details for the agent",
+        "Background context or constraints"
+      ],
+      "outputs": [
+        "Agent execution results summary",
+        "Status of spawned agents",
+        "Concise conclusions or next steps",
+        "Any notable findings or blockers"
+      ]
+    }
+  },
+  "TaskOutput": {
+    "hash": "6cfe9804b2472d5d",
+    "compressed": {
+      "capabilities": [
+        "Retrieve task output by ID",
+        "Wait for task completion by default",
+        "Handle multiple task types uniformly",
+        "Return status and output together"
+      ],
+      "limits": [
+        "Cannot reveal internal tool IDs",
+        "Cannot perform user task execution",
+        "Cannot access non-existent tasks",
+        "Cannot provide real-time streaming beyond timeout"
+      ],
+      "inputs": [
+        "task_id: string",
+        "block: boolean",
+        "max_wait_ms: integer"
+      ],
+      "outputs": [
+        "task_output: string",
+        "status: string",
+        "exit_code: integer",
+        "completed_at: timestamp"
+      ]
+    }
+  },
+  "Read": {
+    "hash": "c453408c28ea609d",
+    "compressed": {
+      "capabilities": [
+        "Read files from local filesystem",
+        "Read images in Claude Code format",
+        "Read PDF with page ranges",
+        "Return content with line numbers"
+      ],
+      "limits": [
+        "Cannot describe workflow or reasoning",
+        "Cannot access directories directly",
+        "Cannot perform actions beyond reading",
+        "Cannot provide non-string values in arrays"
+      ],
+      "inputs": [
+        "absolute file path",
+        "number of lines to read",
+        "start line number",
+        "PDF page range (e.g., 1-5)"
+      ],
+      "outputs": [
+        "contents of file with line numbers",
+        "image render or textual representation",
+        "PDF page contents as text",
+        "error messages for missing files"
+      ]
+    }
+  },
+  "ExitPlanMode": {
+    "hash": "ffe88381c53b0635",
+    "compressed": {
+      "capabilities": [
+        "Read plan file for user approval",
+        "Signal completion of planning stage",
+        "Await user review and permission",
+        "Interface with ExitPlanMode workflow"
+      ],
+      "limits": [
+        "Cannot perform coding or execution",
+        "Cannot modify plan without approval",
+        "Cannot operate outside plan context",
+        "Cannot infer user intent beyond plan"
+      ],
+      "inputs": [
+        "plan file contents",
+        "user approval decision",
+        "plan mode status",
+        "reviewed plan text"
+      ],
+      "outputs": [
+        "approval request to user",
+        "status update of planning phase",
+        "plan content surfaced for review",
+        "signal that plan is ready"
+      ]
+    }
+  },
+  "WebFetch": {
+    "hash": "77daa893a3a15042",
+    "compressed": {
+      "capabilities": [
+        "Fetches content from a URL",
+        "Converts HTML to markdown",
+        "Processes content with a prompt",
+        "Returns model's response about content",
+        "Caches repeated URL fetches for speed"
+      ],
+      "limits": [
+        "Cannot access authenticated/private URLs",
+        "Cannot modify remote files or data",
+        "Cannot perform searches or browsing beyond fetch",
+        "Cannot infer user intent beyond provided content",
+        "Cannot output non-text content"
+      ],
+      "inputs": [
+        "fully-formed valid URL",
+        "prompt describing information to extract"
+      ],
+      "outputs": [
+        "model's response about the content",
+        "markdown-formatted page content (in processing output)"
+      ]
+    }
+  },
+  "Write": {
+    "hash": "500bedb9f64ac51e",
+    "compressed": {
+      "capabilities": [
+        "Writes a file to local filesystem",
+        "Overwrites existing file contents when needed",
+        "Supports creating new files via write operation",
+        "Returns written content status or result"
+      ],
+      "limits": [
+        "Cannot provide narrative explanations or prose",
+        "Cannot perform web searches or external calls",
+        "Cannot modify documentation or README files",
+        "Cannot infer user intent or purpose"
+      ],
+      "inputs": [
+        "Absolute path to file (must be provided)",
+        "Content to write into the file",
+        "Optional instruction for file overwrite behavior"
+      ],
+      "outputs": [
+        "Confirmation of write success or failure",
+        "Path of the written file",
+        "Details about any overwrite performed",
+        "Potential error messages if write fails"
+      ]
+    }
+  },
+  "CronList": {
+    "hash": "20d8f2cc741fffd4",
+    "compressed": {
+      "capabilities": [
+        "List cron jobs scheduled via CronCreate",
+        "Access session cron job records",
+        "Format cron data for display",
+        "Filter cron entries by session"
+      ],
+      "limits": [
+        "Cannot execute CronCreate",
+        "Cannot modify cron schedules directly",
+        "Cannot access outside-session jobs",
+        "Cannot reveal non-cron tool data"
+      ],
+      "inputs": [
+        "Session identifier for CronCreate",
+        "Cron expression string",
+        "Command to run",
+        "Schedule/timezone details",
+        "Descriptive label or comment"
+      ],
+      "outputs": [
+        "List of scheduled cron jobs",
+        "Structured cron job details",
+        "Filtered cron job results",
+        "Error or empty results if none"
+      ]
+    }
+  },
+  "EnterPlanMode": {
+    "hash": "86a9d413bcfc2cde",
+    "compressed": {
+      "capabilities": [
+        "Explore codebase structure with search",
+        "Design implementation plan and options",
+        "Present plan for user approval",
+        "Ask clarifying questions when needed"
+      ],
+      "limits": [
+        "Cannot execute code or modify files",
+        "Cannot access private systems beyond chat",
+        "Cannot store user data between sessions",
+        "Cannot violate safety or policy constraints"
+      ],
+      "inputs": [
+        "User consent to enter plan mode",
+        "Project repository access (path, files)",
+        "High-level task description",
+        "Any constraints or preferences"
+      ],
+      "outputs": [
+        "Structured implementation plan proposal",
+        "Chosen approach with rationale",
+        "Questions to clarify requirements",
+        "Preview of affected files and scope"
+      ]
+    }
+  },
+  "TaskList": {
+    "hash": "975a8008ecced2e3",
+    "compressed": {
+      "capabilities": [
+        "List all tasks in the task list",
+        "Show task status and ownership",
+        "Identify blocked tasks by dependencies",
+        "Return tasks in ID order when possible"
+      ],
+      "limits": [
+        "Cannot perform actions outside TaskList",
+        "Cannot modify tasks without IDs",
+        "Cannot provide explanations or prose",
+        "Cannot access tasks not pending or unblocked"
+      ],
+      "inputs": [
+        "task ID to view or update",
+        "none for general progress check",
+        "filter parameters for status or owner",
+        "request to fetch next available task"
+      ],
+      "outputs": [
+        "summary of each task with id, subject, status, owner, blockedBy",
+        "structured JSON representing task details",
+        "array of tasks matching query",
+        "unblocked task recommendations in ID order"
+      ]
+    }
+  },
+  "EnterWorktree": {
+    "hash": "1d3fcec565e69e5e",
+    "compressed": {
+      "capabilities": [
+        "Create a new git worktree in repo",
+        "Switch session to the new worktree",
+        "Generate random worktree name if omitted",
+        "Enter an existing worktree by path"
+      ],
+      "limits": [
+        "Cannot operate outside a git repo",
+        "Cannot enter a worktree without explicit instruction",
+        "Cannot modify branches without appropriate context",
+        "Cannot describe sequencing or workflow steps"
+      ],
+      "inputs": [
+        "name (optional) for new worktree",
+        "path (optional) to existing worktree",
+        "worktree.baseRef setting (fresh or head)"
+      ],
+      "outputs": [
+        "New worktree created and session switched",
+        "Current directory updated to new worktree",
+        "Confirmation of worktree path and branch"
+      ]
+    }
+  },
+  "CronDelete": {
+    "hash": "b7fe8f4e68e177",
+    "compressed": {
+      "capabilities": [
+        "Cancel a cron job by ID",
+        "Remove cron from in-memory session store",
+        "Validate job ID against created jobs",
+        "Return status of cancellation operation"
+      ],
+      "limits": [
+        "Cannot schedule or create cron jobs",
+        "Cannot access persistent storage",
+        "Cannot modify jobs outside current session",
+        "Cannot provide human-readable progress updates"
+      ],
+      "inputs": [
+        "Job ID (string) identifying cron to cancel"
+      ],
+      "outputs": [
+        "Cancellation success flag",
+        "Canceled job ID confirmation",
+        "Error message if cancellation fails"
+      ]
+    }
+  },
+  "Edit": {
+    "hash": "14be412d035069c",
+    "compressed": {
+      "capabilities": [
+        "Read files using Read tool",
+        "Edit files with precise replacements",
+        "Preserve indentation in edits",
+        "Support replace_all for wide changes",
+        "Operate on existing codebase files"
+      ],
+      "limits": [
+        "Cannot output explanations or prose",
+        "Cannot create new files without prompt",
+        "Cannot search external sources",
+        "Cannot edit without Read preface",
+        "Cannot ignore unique string requirement"
+      ],
+      "inputs": [
+        "Absolute path of target file",
+        "Old string to replace",
+        "New string to replace with",
+        "Replace all occurrences flag"
+      ],
+      "outputs": [
+        "Modified file content in repository",
+        "Edit operation result confirmation"
+      ]
+    }
+  },
+  "Skill": {
+    "hash": "fab6957be541ca37",
+    "compressed": {
+      "capabilities": [
+        "Expose tool capabilities in structured form",
+        "Parse and summarize tool descriptions",
+        "Extract structured facts from text",
+        "Represent tool features in JSON"
+      ],
+      "limits": [
+        "Cannot provide external links or sources",
+        "Cannot infer user intent beyond text",
+        "Cannot perform actions outside provided tool",
+        "Cannot output prose explanations"
+      ],
+      "inputs": [
+        "Tool description text",
+        "Structured facts to extract",
+        "Raw capabilities or limits text",
+        "JSON schema definitions"
+      ],
+      "outputs": [
+        "JSON object capturing capabilities, limits, inputs, outputs"
+      ]
+    }
+  }
+}
