@@ -1,14 +1,32 @@
 # Configuration
 
-clounar is configured via `config.toml`, located at `~/.clounar/config.toml`.
+clounar stores all user-editable files under `~/.clounar/`:
+
+| File | Created | Purpose |
+|---|---|---|
+| `config.toml` | First run (if absent) | All configuration: server, perplexity, and prompt templates |
+| `.default_ignore` | First run (if absent) | `.gitignore`-format patterns to exclude from the file index when a project has no `.gitignore` |
+
+Both files are written **only if they don't already exist** — clounar never overwrites your edits. Changes to either file take effect on the next restart; no recompile is needed.
+
+### `.default_ignore`
+
+This file controls which paths are excluded when clounar builds its file index of your working directory. It uses standard `.gitignore` syntax. It is only applied when the current project has **no `.gitignore`** of its own — if a `.gitignore` is present, `.default_ignore` is skipped entirely.
+
+Edit `~/.clounar/.default_ignore` to add your own patterns (e.g. `node_modules/`, `*.log`, `dist/`).
+
+---
+
+## `config.toml`
+
+Located at `~/.clounar/config.toml`.
 
 ## Full example
 
 ```toml
 [perplexity]
-default_mode = "copilot"
+default_mode = "concise"
 default_model = "experimental"
-default_source = "default"
 incognito = true
 
 [server]
@@ -20,11 +38,11 @@ log_level = "info"
 
 [prompts]
 compress = """..."""
-agent_select = """..."""
 args = """..."""
 tool_result = """..."""
-plan = """..."""
+intent_classify = """..."""
 hash_select = """..."""
+web_search = """..."""
 ```
 
 ---
@@ -33,9 +51,8 @@ hash_select = """..."""
 
 | Key | Type | Default | Description |
 |---|---|---|---|
-| `default_mode` | string | `"copilot"` | Perplexity query mode. Options: `copilot`, `concise`, `detailed` |
-| `default_model` | string | `"experimental"` | Model to use. Run `/v1/models` to see available models for your tier |
-| `default_source` | string | `"default"` | Source filter for search results |
+| `default_mode` | string | `"concise"` | Perplexity query mode. Passed directly to the Perplexity API — run `/v1/models` or check your Perplexity account for supported values |
+| `default_model` | string | `"experimental"` | Model to use. clounar logs all available models for your subscription tier on every startup — use that list to pick a value |
 | `incognito` | bool | `true` | Whether to use incognito mode (no history saved on Perplexity) |
 
 ---
@@ -52,18 +69,18 @@ hash_select = """..."""
 
 ## `[prompts]`
 
-Each key is a multiline string template used to instruct the model at a specific stage of the workflow. Templates support named placeholders — clounar substitutes them at runtime. You can reword instructions, change tone, or reorder placeholders freely.
+Each key is a multiline string template embedded in `config.toml` used to instruct the model at a specific stage of the workflow. Templates support named placeholders — clounar substitutes them at runtime. You can reword instructions, change tone, or reorder placeholders freely.
 
-**Clounar validates all required placeholders are present at startup and will refuse to start if any are missing.**
+**clounar validates all required placeholders are present at startup and will refuse to start if any are missing — it prints exactly which placeholder is absent.**
 
 | Key | Required placeholders | Purpose |
 |---|---|---|
-| `compress` | `{user_request}`, `{combined}`, `{available_tools}` | Compresses a tool description into rules and preconditions |
-| `agent_select` | `{tools_list}`, `{user_query}`, `{combined}` | Selects which subagent type to use for the request |
-| `args` | `{user_query}`, `{env_context}`, `{prior_context}`, `{rules}`, `{schema}` | Generates tool call arguments as JSON |
-| `tool_result` | `{user_query}`, `{tool_name}`, `{tool_input}`, `{tool_result}` | Formats the final response after a tool returns |
-| `plan` | `{tools_section}`, `{user_query}` | Plans the sequence of tools needed to complete the request |
+| `compress` | `{tool_name}`, `{combined}` | Extracts structured capability/limit facts from a tool description |
+| `args` | `{user_query}`, `{env_context}`, `{file_artifacts}`, `{resolved_args}`, `{rules}`, `{schema}` | Generates tool call arguments as JSON conforming to the tool's input schema |
+| `tool_result` | `{user_query}`, `{tool_name}`, `{tool_input}`, `{tool_result}` | Formats the final response after a tool returns its output |
+| `intent_classify` | `{user_query}` | Classifies the user's intent and extracts action type and target path |
 | `hash_select` | `{user_query}`, `{candidates}` | Matches the current request to a prior task for context reuse |
+| `web_search` | `{query}` | Drives web searches for error diagnosis and live lookups |
 
 ---
 

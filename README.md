@@ -48,9 +48,9 @@ cargo build --release
 
 On first run, clounar will:
 
-- Create `~/.clounar/` with a default `config.toml`
-- Create `~/.clounar/.default_ignore` with sensible file index exclusions
-- Create `~/.claude/settings.json` pointing Claude Code to the local server
+- Create `~/.clounar/config.toml` with defaults (only if it doesn't already exist — your edits are never overwritten)
+- Create `~/.clounar/.default_ignore` with sensible file-index exclusions (only if it doesn't already exist)
+- Create `~/.claude/settings.json` pointing Claude Code to the local server (only if it doesn't already exist — existing Claude Code settings are left untouched)
 - Extract your Perplexity session cookies automatically from Chrome
 
 Then launch Claude Code as normal — all model inference routes through Perplexity.
@@ -63,9 +63,8 @@ Config lives at `~/.clounar/config.toml`:
 
 ```toml
 [perplexity]
-default_mode = "copilot"
+default_mode = "concise"
 default_model = "experimental"
-default_source = "default"
 incognito = true
 
 [server]
@@ -77,16 +76,18 @@ log_level = "info"
 
 [prompts]
 compress = "..."
-agent_select = "..."
 args = "..."
 tool_result = "..."
-plan = "..."
+intent_classify = "..."
 hash_select = "..."
+web_search = "..."
 ```
 
-Prompt templates support named placeholders (e.g. `{user_query}`, `{tools_list}`). You can reword or reorder them freely — clounar validates all required placeholders are present at startup and will refuse to start if any are missing.
+All six prompt keys are multiline string templates embedded directly in `config.toml`. You can reword, retone, or reorder them freely. clounar validates all required placeholders are present at startup and will refuse to start if any are missing — it will print exactly which placeholder is absent.
 
-See [docs/configuration.md](docs/configuration.md) for all options, available models, and the full default prompt templates.
+Changes take effect on the next restart; no recompile is needed.
+
+See [docs/configuration.md](docs/configuration.md) for all options, placeholder reference, and the `.default_ignore` file.
 
 ---
 
